@@ -1,0 +1,307 @@
+<!--
+Miriam Pastries - Single-file static website (index.html)
+Created for: Miriam Pastries, Bangalore
+Contact/Order number: 9980359743
+
+How to use:
+1) Open this file in a browser to preview locally.
+2) Replace placeholder images (./assets/ or remote URLs) with your photos.
+3) To deploy for free:
+   - Netlify: drag-and-drop the index.html (no build required) or connect a Git repo.
+   - GitHub Pages: push this file to the repo root (or gh-pages branch) and enable Pages.
+   - Vercel: Import the repo and set root as project; it will deploy the static site.
+
+Notes:
+- This file uses Tailwind Play CDN for styling (no build). For production, consider
+  converting to a proper build (Tailwind CLI / PostCSS) and optimizing images.
+- To receive orders via phone, there's a prominent "Call to Order" button that dials
+  the provided number on mobile: tel:9980359743
+- There's a lightweight contact form that submits to mailto: (fallback) — for real
+  form submissions you'd need a backend or form service (Formspree, Netlify Forms).
+
+---
+Below is the complete index.html. Edit directly in your code editor or copy to a repo.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miriam Pastries — Customized Cakes in Bangalore</title>
+  <meta name="description" content="Miriam Pastries | Customized birthday cakes, cupcakes, and pastries — Bangalore. Call to order: 9980359743" />
+  <!-- Tailwind Play CDN (no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small custom tweaks */
+    .hero-bg { background: linear-gradient(120deg,#fff7f0 0%, #fff0f6 100%); }
+  </style>
+</head>
+<body class="antialiased text-gray-800">
+  <header class="bg-white shadow-md">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="https://via.placeholder.com/64x64.png?text=MP" alt="Miriam Pastries logo" class="w-16 h-16 rounded-md object-cover" />
+        <div>
+          <h1 class="text-2xl font-semibold">Miriam Pastries</h1>
+          <p class="text-sm text-gray-500">Bangalore — Customized birthday cakes & more</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/919980359743" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 bg-pink-600 text-white rounded-md shadow hover:bg-pink-700">Call to Order
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884l2-3A1 1 0 015 2h2a1 1 0 01.92.606l1 2.5a1 1 0 01-.217 1.09L8 7.5a11.042 11.042 0 005.5 5.5l.304-.304a1 1 0 011.09-.217l2.5 1A1 1 0 0118 15v2a1 1 0 01-1.884.997l-3-2A16 16 0 012 5.884z"/></svg>
+        </a>
+        <a href="#contact" class="text-sm text-gray-600 hover:underline">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-bg py-16">
+      <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-4xl font-extrabold mb-4">Beautiful, Customized Cakes for Every Birthday</h2>
+          <p class="text-gray-700 mb-6">We handcraft all types of customized birthday cakes — themed cakes, photo cakes, fondant designs, eggless options and celebration boxes. Based in Bangalore, we deliver joy one slice at a time.</p>
+          <div class="flex gap-3">
+            <a href="https://wa.me/919980359743" target="_blank" rel="noopener noreferrer" class="px-5 py-3 bg-pink-600 text-white rounded-md shadow hover:bg-pink-700">Call to Order</a>
+            <a href="#menu" class="px-5 py-3 border border-pink-600 text-pink-600 rounded-md hover:bg-pink-50">View Menu</a>
+          </div>
+          <p class="mt-4 text-sm text-gray-500">Order hotline: <strong>9980359743</strong></p>
+        </div>
+        <div class="rounded-lg overflow-hidden shadow-lg">
+          <img src="assets/images/landingcake.jpg" alt="White round celebration cake with smooth fondant frosting decorated with purple orchids, small white filler flowers, and scattered sugar pearls; placed on a gold cake board against a dark background. No visible text. Tone elegant and celebratory." class="w-full h-72 object-cover" />
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="py-12">
+      <div class="max-w-5xl mx-auto px-6">
+        <h3 class="text-2xl font-bold mb-4">Our Specialties</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div class="p-6 border rounded-lg">
+            <h4 class="font-semibold text-lg">Customized Birthday Cakes</h4>
+            <p class="text-sm text-gray-600 mt-2">Themed cakes, character designs, and bespoke flavors. Sizes from 1 kg to 5 kg+</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="p-6 border rounded-lg">
+            <h4 class="font-semibold text-lg">Cupcakes & Pastries</h4>
+            <p class="text-sm text-gray-600 mt-2">Party boxes, assorted pastries and single-serve delights for events.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-5xl mx-auto px-6">
+        <h3 class="text-2xl font-bold mb-6">Gallery</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Butter%20scotch%20cake.jpg" alt="Butter scotch cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Butter Scotch Cake - ₹850 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Chocolate%20cake.jpg" alt="Chocolate cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Chocolate cake - ₹850 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Chocolate%20Truffle%20cake%20with%20gems%20cake.jpg" alt="Chocolate Truffle with gems" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Chocolate Truffle with gems - ₹1200 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Chocolate%20truffle%20cake.jpg" alt="Chocolate truffle cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Chocolate truffle cake - ₹950 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Chocolate%20with%20pistachio%20filling%20cake.jpg" alt="Chocolate with pistachio filling" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Chocolate with pistachio filling - ₹1200 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Kitkat%20cake%20cake.jpg" alt="Kitkat cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Kitkat cake - ₹1500 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Mango%20cake.jpg" alt="Mango cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Mango cake (Seasonal) - ₹900 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/pineapple%20cake.jpg" alt="Pineapple cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Pineapple cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Rasmalai%20cake.jpg" alt="Rasmalai cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Rasmalai cake - ₹1000 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Red%20velvet.jpg" alt="Red velvet" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Red velvet - ₹950 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Strawberry%20cake.jpg" alt="Strawberry cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Strawberry cake - ₹800 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Vanilla%20cake.jpg" alt="Vanilla cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Vanilla cake - ₹800 (per/Kg)</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/White%20forest%20cake.jpg" alt="White forest cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">White forest cake - ₹900 (per/Kg)</figcaption>
+          </figure>
+
+          <!-- Brownie retained -->
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Brownie.jpg" alt="Brownie" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Brownie - ₹70 (per pc)</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Customized cakes gallery -->
+    <section class="py-12 bg-white">
+      <div class="max-w-5xl mx-auto px-6">
+        <h3 class="text-2xl font-bold mb-6">Customized cakes</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Barbie%20cake.jpg" alt="Barbie cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Barbie cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Picture%20cake1.jpg" alt="Picture cake 1" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Picture cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Picture%20cake2.jpg" alt="Picture cake 2" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Picture cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/picture%20cake3.jpg" alt="Picture cake 3" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Picture cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Unicorn%20cake.jpg" alt="Unicorn cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Unicorn cake</figcaption>
+          </figure>
+
+          <!-- New customized items -->
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/customized%20cake.jpg" alt="Customized cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Customized cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/customized%20cake2.jpg" alt="Customized cake 2" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Customized cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/customized%20cake3.jpg" alt="Customized cake 3" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Customized cake</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/cupcakes.jpg" alt="Cupcakes" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Cupcakes</figcaption>
+          </figure>
+
+          <figure class="bg-white rounded overflow-hidden shadow">
+            <img src="assets/images/Marriagecake.jpg" alt="Marriage cake" class="w-full h-40 object-cover" />
+            <figcaption class="p-2 text-center text-sm font-medium">Marriage cake</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="order" class="py-12">
+      <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Place an Order</h3>
+          <p class="text-gray-700 mb-4">Call us directly or send a quick message with your requirements — size, flavor, theme, delivery date and any images you'd like on the cake.</p>
+          <ul class="text-sm text-gray-600 list-disc pl-5">
+            <li>Phone: <a href="https://wa.me/919980359743" target="_blank" rel="noopener noreferrer" class="text-pink-600 font-medium">9980359743</a></li>
+            <li>Location: Bangalore (local delivery & pickup available)</li>
+            <li>Custom quotes based on design and delivery area</li>
+          </ul>
+          <div class="mt-6">
+            <a href="https://wa.me/919980359743" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-3 bg-pink-600 text-white rounded-md shadow">Call to Order</a>
+            <a href="#contact" class="ml-3 inline-block px-6 py-3 border border-pink-600 text-pink-600 rounded-md">Send Message</a>
+          </div>
+        </div>
+        <div>
+          <form action="mailto:example@example.com" method="POST" encType="text/plain" id="contact" class="space-y-4">
+            <h4 class="text-lg font-semibold">Quick Message</h4>
+            <input name="Name" placeholder="Your name" class="w-full p-3 border rounded" required />
+            <input name="Phone" placeholder="Phone / WhatsApp" class="w-full p-3 border rounded" required />
+            <input name="Date" placeholder="Event date (YYYY-MM-DD)" class="w-full p-3 border rounded" />
+            <textarea name="Details" placeholder="Describe your cake (flavor, theme, size)" class="w-full p-3 border rounded h-28"></textarea>
+            <div class="flex gap-3">
+              <button type="submit" class="px-4 py-2 bg-pink-600 text-white rounded">Send Message</button>
+              <button type="button" onclick="window.open('https://wa.me/919980359743','_blank')" class="px-4 py-2 border rounded">Call Now</button>
+            </div>
+            <p class="text-xs text-gray-500">Note: Email form uses your mail client. For production, consider Netlify Forms or Formspree.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-white">
+      <div class="max-w-5xl mx-auto px-6">
+        <h3 class="text-2xl font-bold mb-4">Reviews</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <blockquote class="p-4 border rounded">"Best birthday cake ever — beautiful and tasty!" <div class="text-sm text-gray-500 mt-2">— Sneha, Bangalore</div></blockquote>
+          <blockquote class="p-4 border rounded">"Loved the custom design and timely delivery." <div class="text-sm text-gray-500 mt-2">— Rahul, Koramangala</div></blockquote>
+          <blockquote class="p-4 border rounded">"Perfect eggless options for our family." <div class="text-sm text-gray-500 mt-2">— Asha, Indiranagar</div></blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-6">
+      <div>
+        <h4 class="font-semibold text-lg">Miriam Pastries</h4>
+        <p class="text-sm text-gray-300 mt-1">Bangalore • Customized birthday cakes & pastries</p>
+        <p class="text-sm text-gray-300 mt-2">Order: <a href="https://wa.me/919980359743" target="_blank" rel="noopener noreferrer" class="underline">9980359743</a></p>
+      </div>
+      <div>
+        <h5 class="font-medium">Quick Links</h5>
+        <ul class="text-sm text-gray-300 mt-2">
+          <li><a href="#menu" class="hover:underline">Menu</a></li>
+          <li><a href="#order" class="hover:underline">Order</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium">Follow</h5>
+        <p class="text-sm text-gray-300 mt-2">Instagram / Facebook (replace with real links)</p>
+      </div>
+    </div>
+    <div class="text-center text-gray-500 text-sm mt-6">&copy; <span id="year"></span> Miriam Pastries — All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+  </script>
+</body>
+</html>
