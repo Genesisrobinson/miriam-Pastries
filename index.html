@@ -37,253 +37,10 @@ Below is the complete index.html. Edit directly in your code editor or copy to a
     .hero-bg { background: linear-gradient(120deg,#fff7f0 0%, #fff0f6 100%); }
   </style>
 </head>
-<!--
-  ════════════════════════════════════════════
-  Miriam Pastries — Order Chatbot Widget
-  ════════════════════════════════════════════
-  Paste this entire block just before </body>
-  in your index.html. That's all you need to do.
--->
-<script>
-(function () {
-
-  const MENU = {
-    "Butter Scotch Cake":          { price: 850,  unit: "kg" },
-    "Chocolate Cake":              { price: 850,  unit: "kg" },
-    "Chocolate Truffle with Gems": { price: 1200, unit: "kg" },
-    "Chocolate Truffle Cake":      { price: 950,  unit: "kg" },
-    "Chocolate Pistachio Filling": { price: 1200, unit: "kg" },
-    "KitKat Cake":                 { price: 1500, unit: "kg" },
-    "Mango Cake (Seasonal)":       { price: 900,  unit: "kg" },
-    "Pineapple Cake":              { price: 800,  unit: "kg" },
-    "Rasmalai Cake":               { price: 1000, unit: "kg" },
-    "Red Velvet":                  { price: 950,  unit: "kg" },
-    "Strawberry Cake":             { price: 800,  unit: "kg" },
-    "Vanilla Cake":                { price: 800,  unit: "kg" },
-    "White Forest Cake":           { price: 900,  unit: "kg" },
-    "Brownie":                     { price: 70,   unit: "pc" },
-  };
-
-  const css = `
-    #mp-fab{position:fixed;bottom:24px;right:24px;z-index:9999;width:56px;height:56px;
-      border-radius:50%;background:#7B2D3E;border:none;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-      box-shadow:0 4px 18px rgba(123,45,62,.4);transition:transform .2s}
-    #mp-fab:hover{transform:scale(1.08)}
-    #mp-fab svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
-    #mp-win{position:fixed;bottom:90px;right:24px;z-index:9999;width:340px;height:500px;
-      border-radius:16px;overflow:hidden;display:none;flex-direction:column;
-      box-shadow:0 8px 32px rgba(0,0,0,.18);background:#fff;border:1px solid #f0d6db;
-      font-family:'Segoe UI',sans-serif}
-    #mp-win.open{display:flex}
-    #mp-hd{background:#7B2D3E;padding:12px 14px;display:flex;align-items:center;gap:10px}
-    .mp-av{width:36px;height:36px;border-radius:50%;background:#F5C4D3;
-      display:flex;align-items:center;justify-content:center;
-      font-size:15px;font-weight:700;color:#7B2D3E;flex-shrink:0}
-    .mp-ht h3{margin:0;font-size:14px;color:#fff;font-weight:600}
-    .mp-ht p{margin:0;font-size:11px;color:#F5C4D3}
-    #mp-x{margin-left:auto;background:none;border:none;color:#F5C4D3;font-size:22px;
-      cursor:pointer;line-height:1;padding:0}
-    #mp-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;
-      gap:8px;background:#FFF8F9}
-    .mp-row{display:flex;flex-direction:column}
-    .mp-row.user{align-items:flex-end}
-    .mp-row.bot{align-items:flex-start}
-    .mp-b{max-width:82%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
-    .mp-b.bot{background:#fff;border:1px solid #f0d6db;border-bottom-left-radius:3px;color:#333}
-    .mp-b.user{background:#7B2D3E;color:#fff;border-bottom-right-radius:3px}
-    .mp-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
-    .mp-chip{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid #7B2D3E;
-      color:#7B2D3E;background:transparent;cursor:pointer;font-family:inherit;transition:all .15s}
-    .mp-chip:hover{background:#7B2D3E;color:#fff}
-    .mp-card{background:#fff;border:1px solid #f0d6db;border-radius:10px;
-      padding:10px 12px;margin-top:6px;font-size:12px;color:#333;align-self:flex-start;width:90%}
-    .mp-card h4{margin:0 0 6px;font-size:12px;color:#7B2D3E;font-weight:600}
-    .mp-cr{display:flex;justify-content:space-between;margin-bottom:3px}
-    .mp-ct{border-top:1px solid #f0d6db;margin-top:5px;padding-top:5px;font-weight:600;
-      display:flex;justify-content:space-between}
-    .mp-typ{display:flex;gap:4px;padding:4px 0}
-    .mp-typ span{width:7px;height:7px;border-radius:50%;background:#ccc;
-      animation:mpblink 1s infinite}
-    .mp-typ span:nth-child(2){animation-delay:.2s}
-    .mp-typ span:nth-child(3){animation-delay:.4s}
-    @keyframes mpblink{0%,80%,100%{opacity:.2}40%{opacity:1}}
-    #mp-ft{display:flex;align-items:center;gap:8px;padding:10px 12px;
-      border-top:1px solid #f0d6db;background:#fff}
-    #mp-in{flex:1;border:1px solid #e0c5cb;border-radius:20px;padding:8px 13px;
-      font-size:13px;font-family:inherit;outline:none;background:#FFF8F9;color:#333}
-    #mp-snd{width:34px;height:34px;border-radius:50%;background:#7B2D3E;border:none;
-      cursor:pointer;display:flex;align-items:center;justify-content:center}
-    #mp-snd svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
-  `;
-  const st = document.createElement("style");
-  st.textContent = css;
-  document.head.appendChild(st);
-
-  document.body.insertAdjacentHTML("beforeend", `
-    <button id="mp-fab" aria-label="Order a cake">
-      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    </button>
-    <div id="mp-win" role="dialog" aria-label="Order chat">
-      <div id="mp-hd">
-        <div class="mp-av">M</div>
-        <div class="mp-ht"><h3>Miriam Pastries</h3><p>🟢 Online · Bangalore</p></div>
-        <button id="mp-x" aria-label="Close">×</button>
-      </div>
-      <div id="mp-msgs"></div>
-      <div id="mp-ft">
-        <input id="mp-in" type="text" placeholder="Type a message…" autocomplete="off"/>
-        <button id="mp-snd" aria-label="Send">
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-      </div>
-    </div>
-  `);
-
-  let S = { step:"welcome", order:{}, pendingItem:null,
-            customerName:"", phone:"", deliveryDate:"", address:"", customNote:"" };
-
-  const msgs = document.getElementById("mp-msgs");
-  const inp  = document.getElementById("mp-in");
-
-  function bubble(html, role, chips, card) {
-    const row = document.createElement("div");
-    row.className = "mp-row " + role;
-    const b = document.createElement("div");
-    b.className = "mp-b " + role;
-    b.innerHTML = html;
-    row.appendChild(b);
-    if (card) { const d=document.createElement("div"); d.innerHTML=card; row.appendChild(d); }
-    if (chips?.length) {
-      const cr=document.createElement("div"); cr.className="mp-chips";
-      chips.forEach(c => {
-        const btn=document.createElement("button"); btn.className="mp-chip";
-        btn.textContent=c; btn.onclick=()=>handle(c); cr.appendChild(btn);
-      });
-      row.appendChild(cr);
-    }
-    msgs.appendChild(row);
-    msgs.scrollTop=msgs.scrollHeight;
-  }
-
-  function typing(){ const d=document.createElement("div"); d.id="mp-ty"; d.className="mp-row bot";
-    d.innerHTML=`<div class="mp-b bot"><div class="mp-typ"><span></span><span></span><span></span></div></div>`;
-    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; }
-  function clearTyping(){ document.getElementById("mp-ty")?.remove(); }
-  function bot(html,chips,card,ms=650){ typing(); setTimeout(()=>{ clearTyping(); bubble(html,"bot",chips,card); },ms); }
-
-  function menuText(){
-    return Object.entries(MENU).map(([k,v])=>
-      `• <b>${k}</b> — ₹${v.price} <small style="color:#999">${v.unit}</small>`).join("<br>");
-  }
-
-  function cartCard(){
-    const keys=Object.keys(S.order); if(!keys.length) return "";
-    let rows="",total=0;
-    keys.forEach(item=>{ const qty=S.order[item],sub=MENU[item].price*qty; total+=sub;
-      rows+=`<div class="mp-cr"><span>${item} ×${qty}</span><span>₹${sub}</span></div>`; });
-    return `<div class="mp-card"><h4>🛒 Cart</h4>${rows}
-      <div class="mp-ct"><span>Total</span><span>₹${total}</span></div></div>`;
-  }
-
-  async function placeOrder(){
-    try {
-      const r=await fetch("/api/order",{method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({customerName:S.customerName,phone:S.phone,
-          deliveryDate:S.deliveryDate,address:S.address,order:S.order,customNote:S.customNote})});
-      const d=await r.json(); return d.success;
-    } catch(e){ return false; }
-  }
-
-  function handle(raw){
-    const text=raw.trim(); if(!text) return;
-    bubble(text,"user");
-    const lo=text.toLowerCase();
-
-    if(S.step==="welcome"){
-      S.step="menu";
-      bot("Here's our menu 🎂<br><br>"+menuText()+"<br><br>Type a cake name to add it to your cart.",
-          ["Custom cake 🎨","Done, checkout ✅"]);
-
-    } else if(S.step==="menu"||S.step==="addmore"){
-      if(lo.includes("custom cake")){ S.step="customnote";
-        bot("Tell me about your custom cake — theme, size, colours, design, photo? 🎨"); return; }
-      if(lo.startsWith("done")||lo.includes("checkout")){
-        if(!Object.keys(S.order).length&&!S.customNote){
-          bot("Your cart is empty! Add a cake first 🍰",["See menu again"]); return; }
-        S.step="name"; bot("What's your <b>name</b>?",null,cartCard()); return; }
-      const match=Object.keys(MENU).find(k=>lo.includes(k.toLowerCase()));
-      if(match){ S.step="qty"; S.pendingItem=match;
-        bot(`How many <b>${MENU[match].unit==="pc"?"pieces":"kg"}</b> of <b>${match}</b>?`,["0.5","1","1.5","2"]);
-      } else { bot("I didn't recognise that — type a cake name or pick a chip 👇",
-          ["See menu again","Custom cake 🎨","Done, checkout ✅"]); }
-
-    } else if(S.step==="qty"){
-      const qty=parseFloat(text);
-      if(isNaN(qty)||qty<=0){ bot("Please enter a valid number 😊",["1","2","0.5"]); return; }
-      S.order[S.pendingItem]=qty; S.step="addmore";
-      bot(`Added <b>${qty} ${MENU[S.pendingItem].unit} of ${S.pendingItem}</b> ✅`,
-          ["Add another item","Custom cake 🎨","Done, checkout ✅"],cartCard());
-
-    } else if(S.step==="customnote"){
-      S.customNote=text; S.step="name"; bot("Got it! 🎨 What's your <b>name</b>?");
-
-    } else if(S.step==="name"){
-      S.customerName=text; S.step="phone"; bot(`Nice to meet you, <b>${text}</b>! What's your <b>phone number</b>?`);
-
-    } else if(S.step==="phone"){
-      S.phone=text; S.step="date"; bot("When do you need the cake? 📅",["Tomorrow","This weekend","Next week"]);
-
-    } else if(S.step==="date"){
-      S.deliveryDate=text; S.step="address"; bot("What's your <b>delivery address</b> in Bangalore? 📍");
-
-    } else if(S.step==="address"){
-      S.address=text; S.step="confirm";
-      const sum=`<b>Name:</b> ${S.customerName}<br><b>Phone:</b> ${S.phone}<br>`+
-        `<b>Delivery:</b> ${S.deliveryDate}<br><b>Address:</b> ${S.address}`+
-        (S.customNote?`<br><b>Custom note:</b> ${S.customNote}`:"");
-      bot("Here's your full order — all good? ✅<br><br>"+sum,
-          ["Yes, place my order! 🎉","No, make a change"],cartCard());
-
-    } else if(S.step==="confirm"){
-      if(lo.includes("yes")||lo.includes("place")){
-        S.step="placing"; bot("Placing your order… ⏳");
-        placeOrder().then(ok=>{
-          if(ok) bubble("🎉 <b>Order placed!</b> Our team has been notified.<br>"+
-            "You'll get a confirmation call soon.<br>📞 <b>9980359743</b><br><br>"+
-            "Thank you for choosing Miriam Pastries! 🎂","bot");
-          else bubble("Something went wrong. Please call us: <a href='tel:9980359743' style='color:#7B2D3E'>9980359743</a>","bot");
-        });
-      } else {
-        S.step="menu";
-        bot("No problem! What would you like to change?",["See menu again","Custom cake 🎨","Done, checkout ✅"]);
-      }
-    }
-  }
-
-  document.getElementById("mp-fab").onclick=()=>{
-    const w=document.getElementById("mp-win"); w.classList.toggle("open");
-    if(w.classList.contains("open")&&S.step==="welcome")
-      bot("Hi! 👋 Welcome to <b>Miriam Pastries</b>.<br>I can take your cake order right here!",
-          ["Let's order! 🎂","See the menu"]);
-  };
-  document.getElementById("mp-x").onclick=()=>document.getElementById("mp-win").classList.remove("open");
-  document.getElementById("mp-snd").onclick=()=>{ const v=inp.value; inp.value=""; handle(v); };
-  inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const v=inp.value; inp.value=""; handle(v); } });
-})();
-</script>
-
-
-
-
-
-
-
-
 
 
 <body class="antialiased text-gray-800">
+
   <header class="bg-white shadow-md">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4">
@@ -550,4 +307,241 @@ Below is the complete index.html. Edit directly in your code editor or copy to a
     document.getElementById('year').innerText = new Date().getFullYear();
   </script>
 </body>
+
+<!--
+  ════════════════════════════════════════════
+  Miriam Pastries — Order Chatbot Widget
+  ════════════════════════════════════════════
+  Paste this entire block just before </body>
+  in your index.html. That's all you need to do.
+-->
+<script>
+(function () {
+
+  const MENU = {
+    "Butter Scotch Cake":          { price: 850,  unit: "kg" },
+    "Chocolate Cake":              { price: 850,  unit: "kg" },
+    "Chocolate Truffle with Gems": { price: 1200, unit: "kg" },
+    "Chocolate Truffle Cake":      { price: 950,  unit: "kg" },
+    "Chocolate Pistachio Filling": { price: 1200, unit: "kg" },
+    "KitKat Cake":                 { price: 1500, unit: "kg" },
+    "Mango Cake (Seasonal)":       { price: 900,  unit: "kg" },
+    "Pineapple Cake":              { price: 800,  unit: "kg" },
+    "Rasmalai Cake":               { price: 1000, unit: "kg" },
+    "Red Velvet":                  { price: 950,  unit: "kg" },
+    "Strawberry Cake":             { price: 800,  unit: "kg" },
+    "Vanilla Cake":                { price: 800,  unit: "kg" },
+    "White Forest Cake":           { price: 900,  unit: "kg" },
+    "Brownie":                     { price: 70,   unit: "pc" },
+  };
+
+  const css = `
+    #mp-fab{position:fixed;bottom:24px;right:24px;z-index:9999;width:56px;height:56px;
+      border-radius:50%;background:#7B2D3E;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 18px rgba(123,45,62,.4);transition:transform .2s}
+    #mp-fab:hover{transform:scale(1.08)}
+    #mp-fab svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+    #mp-win{position:fixed;bottom:90px;right:24px;z-index:9999;width:340px;height:500px;
+      border-radius:16px;overflow:hidden;display:none;flex-direction:column;
+      box-shadow:0 8px 32px rgba(0,0,0,.18);background:#fff;border:1px solid #f0d6db;
+      font-family:'Segoe UI',sans-serif}
+    #mp-win.open{display:flex}
+    #mp-hd{background:#7B2D3E;padding:12px 14px;display:flex;align-items:center;gap:10px}
+    .mp-av{width:36px;height:36px;border-radius:50%;background:#F5C4D3;
+      display:flex;align-items:center;justify-content:center;
+      font-size:15px;font-weight:700;color:#7B2D3E;flex-shrink:0}
+    .mp-ht h3{margin:0;font-size:14px;color:#fff;font-weight:600}
+    .mp-ht p{margin:0;font-size:11px;color:#F5C4D3}
+    #mp-x{margin-left:auto;background:none;border:none;color:#F5C4D3;font-size:22px;
+      cursor:pointer;line-height:1;padding:0}
+    #mp-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;
+      gap:8px;background:#FFF8F9}
+    .mp-row{display:flex;flex-direction:column}
+    .mp-row.user{align-items:flex-end}
+    .mp-row.bot{align-items:flex-start}
+    .mp-b{max-width:82%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+    .mp-b.bot{background:#fff;border:1px solid #f0d6db;border-bottom-left-radius:3px;color:#333}
+    .mp-b.user{background:#7B2D3E;color:#fff;border-bottom-right-radius:3px}
+    .mp-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+    .mp-chip{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid #7B2D3E;
+      color:#7B2D3E;background:transparent;cursor:pointer;font-family:inherit;transition:all .15s}
+    .mp-chip:hover{background:#7B2D3E;color:#fff}
+    .mp-card{background:#fff;border:1px solid #f0d6db;border-radius:10px;
+      padding:10px 12px;margin-top:6px;font-size:12px;color:#333;align-self:flex-start;width:90%}
+    .mp-card h4{margin:0 0 6px;font-size:12px;color:#7B2D3E;font-weight:600}
+    .mp-cr{display:flex;justify-content:space-between;margin-bottom:3px}
+    .mp-ct{border-top:1px solid #f0d6db;margin-top:5px;padding-top:5px;font-weight:600;
+      display:flex;justify-content:space-between}
+    .mp-typ{display:flex;gap:4px;padding:4px 0}
+    .mp-typ span{width:7px;height:7px;border-radius:50%;background:#ccc;
+      animation:mpblink 1s infinite}
+    .mp-typ span:nth-child(2){animation-delay:.2s}
+    .mp-typ span:nth-child(3){animation-delay:.4s}
+    @keyframes mpblink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+    #mp-ft{display:flex;align-items:center;gap:8px;padding:10px 12px;
+      border-top:1px solid #f0d6db;background:#fff}
+    #mp-in{flex:1;border:1px solid #e0c5cb;border-radius:20px;padding:8px 13px;
+      font-size:13px;font-family:inherit;outline:none;background:#FFF8F9;color:#333}
+    #mp-snd{width:34px;height:34px;border-radius:50%;background:#7B2D3E;border:none;
+      cursor:pointer;display:flex;align-items:center;justify-content:center}
+    #mp-snd svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+  `;
+  const st = document.createElement("style");
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  document.body.insertAdjacentHTML("beforeend", `
+    <button id="mp-fab" aria-label="Order a cake">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <div id="mp-win" role="dialog" aria-label="Order chat">
+      <div id="mp-hd">
+        <div class="mp-av">M</div>
+        <div class="mp-ht"><h3>Miriam Pastries</h3><p>🟢 Online · Bangalore</p></div>
+        <button id="mp-x" aria-label="Close">×</button>
+      </div>
+      <div id="mp-msgs"></div>
+      <div id="mp-ft">
+        <input id="mp-in" type="text" placeholder="Type a message…" autocomplete="off"/>
+        <button id="mp-snd" aria-label="Send">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  `);
+
+  let S = { step:"welcome", order:{}, pendingItem:null,
+            customerName:"", phone:"", deliveryDate:"", address:"", customNote:"" };
+
+  const msgs = document.getElementById("mp-msgs");
+  const inp  = document.getElementById("mp-in");
+
+  function bubble(html, role, chips, card) {
+    const row = document.createElement("div");
+    row.className = "mp-row " + role;
+    const b = document.createElement("div");
+    b.className = "mp-b " + role;
+    b.innerHTML = html;
+    row.appendChild(b);
+    if (card) { const d=document.createElement("div"); d.innerHTML=card; row.appendChild(d); }
+    if (chips?.length) {
+      const cr=document.createElement("div"); cr.className="mp-chips";
+      chips.forEach(c => {
+        const btn=document.createElement("button"); btn.className="mp-chip";
+        btn.textContent=c; btn.onclick=()=>handle(c); cr.appendChild(btn);
+      });
+      row.appendChild(cr);
+    }
+    msgs.appendChild(row);
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+
+  function typing(){ const d=document.createElement("div"); d.id="mp-ty"; d.className="mp-row bot";
+    d.innerHTML=`<div class="mp-b bot"><div class="mp-typ"><span></span><span></span><span></span></div></div>`;
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; }
+  function clearTyping(){ document.getElementById("mp-ty")?.remove(); }
+  function bot(html,chips,card,ms=650){ typing(); setTimeout(()=>{ clearTyping(); bubble(html,"bot",chips,card); },ms); }
+
+  function menuText(){
+    return Object.entries(MENU).map(([k,v])=>
+      `• <b>${k}</b> — ₹${v.price} <small style="color:#999">${v.unit}</small>`).join("<br>");
+  }
+
+  function cartCard(){
+    const keys=Object.keys(S.order); if(!keys.length) return "";
+    let rows="",total=0;
+    keys.forEach(item=>{ const qty=S.order[item],sub=MENU[item].price*qty; total+=sub;
+      rows+=`<div class="mp-cr"><span>${item} ×${qty}</span><span>₹${sub}</span></div>`; });
+    return `<div class="mp-card"><h4>🛒 Cart</h4>${rows}
+      <div class="mp-ct"><span>Total</span><span>₹${total}</span></div></div>`;
+  }
+
+  async function placeOrder(){
+    try {
+      const r=await fetch("/api/order",{method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({customerName:S.customerName,phone:S.phone,
+          deliveryDate:S.deliveryDate,address:S.address,order:S.order,customNote:S.customNote})});
+      const d=await r.json(); return d.success;
+    } catch(e){ return false; }
+  }
+
+  function handle(raw){
+    const text=raw.trim(); if(!text) return;
+    bubble(text,"user");
+    const lo=text.toLowerCase();
+
+    if(S.step==="welcome"){
+      S.step="menu";
+      bot("Here's our menu 🎂<br><br>"+menuText()+"<br><br>Type a cake name to add it to your cart.",
+          ["Custom cake 🎨","Done, checkout ✅"]);
+
+    } else if(S.step==="menu"||S.step==="addmore"){
+      if(lo.includes("custom cake")){ S.step="customnote";
+        bot("Tell me about your custom cake — theme, size, colours, design, photo? 🎨"); return; }
+      if(lo.startsWith("done")||lo.includes("checkout")){
+        if(!Object.keys(S.order).length&&!S.customNote){
+          bot("Your cart is empty! Add a cake first 🍰",["See menu again"]); return; }
+        S.step="name"; bot("What's your <b>name</b>?",null,cartCard()); return; }
+      const match=Object.keys(MENU).find(k=>lo.includes(k.toLowerCase()));
+      if(match){ S.step="qty"; S.pendingItem=match;
+        bot(`How many <b>${MENU[match].unit==="pc"?"pieces":"kg"}</b> of <b>${match}</b>?`,["0.5","1","1.5","2"]);
+      } else { bot("I didn't recognise that — type a cake name or pick a chip 👇",
+          ["See menu again","Custom cake 🎨","Done, checkout ✅"]); }
+
+    } else if(S.step==="qty"){
+      const qty=parseFloat(text);
+      if(isNaN(qty)||qty<=0){ bot("Please enter a valid number 😊",["1","2","0.5"]); return; }
+      S.order[S.pendingItem]=qty; S.step="addmore";
+      bot(`Added <b>${qty} ${MENU[S.pendingItem].unit} of ${S.pendingItem}</b> ✅`,
+          ["Add another item","Custom cake 🎨","Done, checkout ✅"],cartCard());
+
+    } else if(S.step==="customnote"){
+      S.customNote=text; S.step="name"; bot("Got it! 🎨 What's your <b>name</b>?");
+
+    } else if(S.step==="name"){
+      S.customerName=text; S.step="phone"; bot(`Nice to meet you, <b>${text}</b>! What's your <b>phone number</b>?`);
+
+    } else if(S.step==="phone"){
+      S.phone=text; S.step="date"; bot("When do you need the cake? 📅",["Tomorrow","This weekend","Next week"]);
+
+    } else if(S.step==="date"){
+      S.deliveryDate=text; S.step="address"; bot("What's your <b>delivery address</b> in Bangalore? 📍");
+
+    } else if(S.step==="address"){
+      S.address=text; S.step="confirm";
+      const sum=`<b>Name:</b> ${S.customerName}<br><b>Phone:</b> ${S.phone}<br>`+
+        `<b>Delivery:</b> ${S.deliveryDate}<br><b>Address:</b> ${S.address}`+
+        (S.customNote?`<br><b>Custom note:</b> ${S.customNote}`:"");
+      bot("Here's your full order — all good? ✅<br><br>"+sum,
+          ["Yes, place my order! 🎉","No, make a change"],cartCard());
+
+    } else if(S.step==="confirm"){
+      if(lo.includes("yes")||lo.includes("place")){
+        S.step="placing"; bot("Placing your order… ⏳");
+        placeOrder().then(ok=>{
+          if(ok) bubble("🎉 <b>Order placed!</b> Our team has been notified.<br>"+
+            "You'll get a confirmation call soon.<br>📞 <b>9980359743</b><br><br>"+
+            "Thank you for choosing Miriam Pastries! 🎂","bot");
+          else bubble("Something went wrong. Please call us: <a href='tel:9980359743' style='color:#7B2D3E'>9980359743</a>","bot");
+        });
+      } else {
+        S.step="menu";
+        bot("No problem! What would you like to change?",["See menu again","Custom cake 🎨","Done, checkout ✅"]);
+      }
+    }
+  }
+
+  document.getElementById("mp-fab").onclick=()=>{
+    const w=document.getElementById("mp-win"); w.classList.toggle("open");
+    if(w.classList.contains("open")&&S.step==="welcome")
+      bot("Hi! 👋 Welcome to <b>Miriam Pastries</b>.<br>I can take your cake order right here!",
+          ["Let's order! 🎂","See the menu"]);
+  };
+  document.getElementById("mp-x").onclick=()=>document.getElementById("mp-win").classList.remove("open");
+  document.getElementById("mp-snd").onclick=()=>{ const v=inp.value; inp.value=""; handle(v); };
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ const v=inp.value; inp.value=""; handle(v); } });
+})();
+</script>
 </html>
