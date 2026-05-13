@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/order.py": {
-      "runtime": "@vercel/python"
+      "maxDuration": 10
     }
   }
 }
