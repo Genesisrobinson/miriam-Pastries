@@ -1,8 +1,7 @@
-json{
-  "version": 2
+{
+  "functions": {
+    "api/order.py": {
+      "runtime": "@vercel/python"
+    }
+  }
 }
-
-
-
-
-
